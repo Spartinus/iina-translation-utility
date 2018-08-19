@@ -68,11 +68,13 @@ class MainWindowController: NSWindowController {
   func loadProject() {
     guard let url = projectURL else { return }
 
-    guard let lProjURLs = try? FileManager.default
-      .contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles, .skipsSubdirectoryDescendants])
-      .filter { $0.hasDirectoryPath && $0.lastPathComponent.hasSuffix(".lproj") }, lProjURLs.count > 1 else {
-        Utils.showAlert(message: "Cannot load the project.")
-        exit(1)
+    guard let lProjURLs = FileManager.default.enumerator(at: url, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles], errorHandler: nil)?.allObjects.compactMap ({
+        $0 as? URL
+    }).filter({ $0.hasDirectoryPath && $0.lastPathComponent.hasSuffix(".lproj") })
+        
+        , lProjURLs.count > 1 else {
+            Utils.showAlert(message: "Cannot load the project.")
+            exit(1)
     }
 
     self.lProjURLs = lProjURLs
