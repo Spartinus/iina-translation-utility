@@ -185,14 +185,14 @@ class MainWindowController: NSWindowController {
   }
 
   @IBAction func reloadFileAction(_ sender: Any) {
-    let file = filelistOutlineView.item(atRow: filelistOutlineView.clickedRow) as! LocalizableFile
+    guard let file = filelistOutlineView.item(atRow: filelistOutlineView.clickedRow) as? LocalizableFile else { return }
     file.update()
     updateStatus()
     filelistOutlineView.reloadItem(file)
   }
 
   @IBAction func reloadWholeFileAction(_ sender: Any) {
-    let file = filelistOutlineView.item(atRow: filelistOutlineView.clickedRow) as! LocalizableFile
+    guard let file = filelistOutlineView.item(atRow: filelistOutlineView.clickedRow) as? LocalizableFile else { return }
     file.update()
     updateStatus()
     displayedItems = selectedFile?.content ?? []
@@ -201,7 +201,7 @@ class MainWindowController: NSWindowController {
   }
 
   @IBAction func revealInFinderAction(_ sender: Any) {
-    let file = filelistOutlineView.item(atRow: filelistOutlineView.clickedRow) as! LocalizableFile
+    guard let file = filelistOutlineView.item(atRow: filelistOutlineView.clickedRow) as? LocalizableFile else { return }
     NSWorkspace.shared.activateFileViewerSelecting([file.url])
   }
 
