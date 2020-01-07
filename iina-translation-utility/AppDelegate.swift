@@ -55,7 +55,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   private func loadWindow(projPath: String) {
     let url = URL(fileURLWithPath: projPath)
     NSDocumentController.shared.noteNewRecentDocumentURL(url)
-    window.projectURL = url.deletingLastPathComponent().appendingPathComponent("iina", isDirectory: true)
+    var nameUrl = url
+    nameUrl.deletePathExtension()
+    window.projectURL = url.deletingLastPathComponent()
+        .appendingPathComponent(nameUrl.lastPathComponent, isDirectory: true)
     window.showWindow(self)
   }
 
