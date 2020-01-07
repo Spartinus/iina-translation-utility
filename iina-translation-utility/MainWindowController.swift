@@ -178,7 +178,7 @@ class MainWindowController: NSWindowController {
 
   @IBAction func nextIssueBtnAction(_ sender: Any) {
     let selectedRow = mainTableView.selectedRow + 1
-    if let row = displayedItems[selectedRow...].index(where: { $0.missingTranslations }) {
+    if let row = displayedItems[selectedRow...].firstIndex(where: { $0.missingTranslations }) {
       mainTableView.scrollRowToVisible(row)
       mainTableView.selectRowIndexes(IndexSet(integer: row), byExtendingSelection: false)
     }

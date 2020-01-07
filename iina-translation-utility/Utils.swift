@@ -26,6 +26,8 @@ class Utils {
       alert.messageText = NSLocalizedString("alert.title_info", comment: "Information")
     case .warning:
       alert.messageText = NSLocalizedString("alert.title_warning", comment: "Warning")
+    @unknown default:
+        alert.messageText = NSLocalizedString("alert.title_error", comment: "Error")
     }
     alert.informativeText = message
     alert.alertStyle = alertStyle
